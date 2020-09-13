@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="bot.png">
+    <title>OWL | Open New Vote</title>
+    <script src="querydecoder.js"></script>
+    <script src="settings.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Create New OWL Vote</h1>
+    </div>
+    <div>
+        <pre>Enter Proposal Information:</pre>
+        <label for="title">Proposal Title</label><br>
+        <input type="text" name="title" id="title" required>
+        <br>
+        <label for="author">Author</label><br>
+        <input type="text" name="author" id="author" required>
+        <br>
+        <label>Proposal Classification</label><br>
+        <input type="checkbox" id="repeal">
+        <label for="repeal">Repeal</label>
+        <select id="type">
+            <option value="ga" selected>GA</option>
+            <option value="sc_commend_nation">SC (Commend Nation)</option>
+            <option value="sc_condemn_nation">SC (Condemn Nation)</option>
+            <option value="sc_commend_region">SC (Commend Region)</option>
+            <option value="sc_condemn_region">SC (Condemn Region)</option>
+            <option value="sc_liberation">SC (Liberation)</option>
+        </select>
+    </div>
+    <div>
+        <pre>Enter Meta Information:</pre>
+        <label for="rmb">RMB Post ID of Vote Opening</label><br>
+        <input type="number" name="rmb" id="rmb" required>
+    </div>
+    <div>
+        <button type="submit" onclick="execute()">Create Vote!</button>
+    </div>
+
+    <script src="open-vote.js"></script>
+</body>
+</html>

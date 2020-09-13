@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="bot.png">
+    <title>OWL | Manage Vote</title>
+    <script src="querydecoder.js"></script>
+    <script src="settings.js"></script>
+    <script src="nsapi.js"></script>
+</head>
+<body>
+    <div>
+        <h1 id="top">Proposal Title</h1>
+        <pre id="internal">ID COUNCIL-NUMBER</pre>
+    </div>
+    <div>
+        <h2>Edit Proposal Information</h2>
+        <label for="title">Proposal Title</label>
+        <input type="text" id="title"><br>
+        <label for="author">Proposal Author</label>
+        <input type="text" id="author"><br>
+        <label for="type">Proposal Type</label>
+        <select id="type">
+            <option value="ga">GA</option>
+            <option value="repeal_ga">Repeal: GA</option>
+            <option value="sc_commend_nation">SC (Commend Nation)</option>
+            <option value="sc_condemn_nation">SC (Condemn Nation)</option>
+            <option value="sc_commend_region">SC (Commend Region)</option>
+            <option value="sc_condemn_region">SC (Condemn Region)</option>
+            <option value="sc_liberation">SC (Liberation)</option>
+            <option value="repeal_sc_commend_nation">Repeal: SC (Commend Nation)</option>
+            <option value="repeal_sc_condemn_nation">Repeal: SC (Condemn Nation)</option>
+            <option value="repeal_sc_commend_region">Repeal: SC (Commend Region)</option>
+            <option value="repeal_sc_condemn_region">Repeal: SC (Condemn Region)</option>
+            <option value="repeal_sc_liberation">Repeal: SC (Liberation)</option>
+        </select>
+    </div>
+    <div>
+        <h2>Edit Opening Information</h2>
+        <label for="rmb">RMB Opening Post</label>
+        <input type="number" id="rmb"><br>
+        <label for="open">Set Vote As</label>
+        <select id="open" onchange="updateVisuals();">
+            <option value="true">Open</option>
+            <option value="false">Closed</option>
+        </select>
+    </div>
+    <br>
+    <div id="reco_settings" hidden>
+        <h2>Edit Recommendation</h2>
+        <label for="reco">Final Recommendation: </label>
+        <select id="reco">
+            <option value="for">For</option>
+            <option value="against">Against</option>
+            <option value="abstain">Abstain</option>
+            <option value="no_recommendation">No Recommendation</option>
+        </select><br>
+        <label for="reason">Reason:</label>
+        <select id="reason">
+            <option value="majority">Majority</option>
+            <option value="override">Cabinet Override</option>
+            <option value="too_few">Too Few Votes</option>
+            <option value="not_submitted">Not Submitted</option>
+            <option value="failed">Failed Quorum</option>
+        </select><br>
+        <label for="dashboard">Dispatch ID in Reco Archive:</label>
+        <input type="number" id="dashboard">
+    </div>
+    <br>
+    <div id="votes"></div>
+    <br>
+    <div>
+        <button onclick="execute()">Update Vote</button>
+    </div>
+
+    <script src="manage-vote.js"></script>
+    <script>
+        function updateVisuals() {
+            if(document.getElementById('open').value == 'false') document.getElementById('reco_settings').hidden = false;
+            else document.getElementById('reco_settings').hidden = true;
+        }
+    </script>
+</body>
+</html>
