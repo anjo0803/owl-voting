@@ -24,3 +24,7 @@ if(QUERY.v == undefined) {
         window.alert('The link bringing you here claims an older bot version than that of this page. Be advised that things might not work properly!');
     }
 }
+
+if((QUERY.hook == undefined || QUERY.token == undefined) && (localStorage.getItem('hook') == null || localStorage.getItem('token') == null)) {
+    window.alert('You\'ve got no credentials for using this interface registered!\nAny action you take will not be registered.');
+}

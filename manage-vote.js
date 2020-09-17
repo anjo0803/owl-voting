@@ -2,7 +2,7 @@
 
 // A list of classified posts for the viewed Vote.
 // Objects have the RMB Post ID as key and a stance as value.
-let classified = [];
+let classified = {};
 
 // Asynchronous IIF (communicating with NS API is async)
 (async function() {
@@ -30,7 +30,7 @@ async function loadPosts() {
         if(!BALLOTS.hasOwnProperty(ballot)) continue;
         if(QUERY[ballot] == undefined) continue;
         for(let message of QUERY[ballot.toLowerCase().replace(' ', '_')].split(';')) {
-            classified.message = ballot;
+            classified[message] = ballot;
             if(oldestPost == null || message < oldestPost) oldestPost = message;
             if(newestPost == null || message > newestPost) newestPost = message;
         }
@@ -41,8 +41,7 @@ async function loadPosts() {
     console.log('Loading RMB...')
     let doc = await ns.getRMB(VOTING_REGION, oldestPost);
     for(let rmbpost of doc.getElementsByTagName('POST')) {
-        console.log(parseInt(rmbpost.getAttribute('id')) > newestPost);
-        /* if(parseInt(rmbpost.getAttribute('id')) > newestPost) continue; */
+        if(parseInt(rmbpost.getAttribute('id')) > newestPost) continue;
         let obj = {
             id: rmbpost.getAttribute('id'),
             poster: rmbpost.getElementsByTagName('NATION')[0].textContent,

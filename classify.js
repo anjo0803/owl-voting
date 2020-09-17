@@ -66,6 +66,8 @@ function draw() {
 
     for(let post of lodged) document.getElementById('lodged').append(createRMBQuote(post));
     for(let post of edited) document.getElementById('edited').append(createRMBQuote(post));
+    if(lodged.length > 0) document.getElementById('lodged').hidden = false;
+    if(edited.length > 0) document.getElementById('edited').hidden = false;
 }
 
 // Returns a set up section for classifying a RMB post
