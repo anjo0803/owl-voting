@@ -90,12 +90,14 @@ function createRMBQuote(post) {
     let classification = document.createElement('p');
 
     let signoff = document.createElement('input');
+    signoff.setAttribute('id', 'signoff-' + post.id);
     signoff.setAttribute('type', 'checkbox');
     signoff.setAttribute('class', 'signoff');
     signoff.setAttribute('onchange', 'updateAmount();');
 
-    let legend = document.createElement('i');
-    legend.innerText = 'Classify post as '
+    let legend = document.createElement('label');
+    legend.setAttribute('for', 'signoff-' + post.id);
+    legend.innerText = 'Classify post as ';
 
     let selectStance = document.createElement('select');
     selectStance.setAttribute('class', 'stance');
