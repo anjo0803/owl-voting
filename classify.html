@@ -28,18 +28,22 @@
     <script>
         /*
         Wraps the currently signed vote classifications into a query string of the syntax:
-        ?command=classify&[classified posts]
+        ?v=[version]&c=classify&[classified posts]
 
         [classified posts] is replaced with an array of signed classifications of the syntax:
         &[postid]=[stance]:[proposal]
         where [postid] is the ID of the RMB post containing the vote, [stance] is the code letter for the voter's stance (see classify.js), and [proposal] is the name of the proposal the vote is cast on.
 
-        So, if post #12345 is a vote FOR the proposal "Testing" and post #54321 is a vote AGAINST the same, and these are the only posts being classified, the returned string will be:
-        ?command=classify&12345=f:Testing&54321=a:Testing
+        So, if post #12345 is a vote FOR the proposal "Testing" and post #54321 is a vote AGAINST the same, and these are the only posts being classified in version 1 of the web interface, the returned string will be:
+        ?v=1&c=classify&12345=f:Testing&54321=a:Testing
         */
         function constructQueryString() {
             let str = '?v=' + BOTV + '&c=classify';
             for(let post of lodged) {
+                let section = document.getElementById(post.id);
+                if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
+            }
+            for(let post of edited) {
                 let section = document.getElementById(post.id);
                 if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
             }
