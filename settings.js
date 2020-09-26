@@ -12,7 +12,10 @@ const BALLOTS = {
 };
 
 // Conduct a simple version check.
-const BOTV = 1;
+const BOTV = 2;
+
+// Command prefix.
+const PREFIX = '-';
 
 if(QUERY.v == undefined) {
     window.alert('Your link here does not specify a bot version. Do not expect things to work unless you know exactly what you\'re doing.');
