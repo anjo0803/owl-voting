@@ -2,9 +2,9 @@
 
 (async function() {
     if(QUERY.c == 'register') register();
-    else if(QUERY.c == 'create') openVote();
+//  else if(QUERY.c == 'create') openVote();
     else if(QUERY.c == 'classify') classifyPosts();
-    else if(QUERY.c == 'update') updateVote();
+//  else if(QUERY.c == 'update') updateVote();
 })();
 
 function register() {
@@ -14,7 +14,7 @@ function register() {
 
 async function openVote() {
     HOOK.payload = {
-        content: '/createvote',
+        content: PREFIX + 'createvote',
         embeds: [
             {
                 fields: [
@@ -49,7 +49,7 @@ async function classifyPosts() {
         if(message == 'c' || message == 'v') continue;
 
         HOOK.payload = {
-            content: '/classify',
+            content: PREFIX + 'classify',
             embeds: [
                 {
                     fields: [
@@ -78,7 +78,7 @@ async function classifyPosts() {
 
 async function updateVote() {
     HOOK.payload = {
-        content: '/updatevote',
+        content: PREFIX + 'updatevote',
         embeds: [
             {
                 fields: [
