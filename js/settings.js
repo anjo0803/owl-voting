@@ -15,7 +15,7 @@ const BALLOTS = {
 const BOTV = 2;
 
 // Command prefix.
-const PREFIX = '-';
+const PREFIX = '/';
 
 if(QUERY.v == undefined) {
     window.alert('Your link here does not specify a bot version. Do not expect things to work unless you know exactly what you\'re doing.');
