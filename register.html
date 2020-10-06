@@ -10,9 +10,10 @@
 <body>
     <pre id="result">Registering...</pre>
     <script>
-        if(QUERY.hook != undefined && QUERY.token != undefined) {
+        if(QUERY.hook != undefined && QUERY.token != undefined && QUERY.auth != undefined) {
             localStorage.setItem('hook', QUERY.hook);
             localStorage.setItem('token', QUERY.token);
+            localStorage.setItem('auth', QUERY.auth);
             document.getElementById('result').innerText = 'Credentials registered.'
         } else document.getElementById('result').innerText = 'Failed - No credentials provided';
     </script>
