@@ -8,6 +8,9 @@ let ns = {
     async getRMB(region, sincePost) {
         if(sincePost == null) return;
         return await response('region=' + region + '&q=messages;limit=100;fromid=' + sincePost);
+    },
+    async getWA() {
+        return await response('wa=1&q=members');
     }
 }
 

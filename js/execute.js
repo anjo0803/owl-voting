@@ -46,7 +46,7 @@ async function openVote() {
 async function classifyPosts() {
     for(let message in QUERY) {
         if(!QUERY.hasOwnProperty(message)) continue;
-        if(message == 'c' || message == 'v') continue;
+        if(message == 'c' || message == 'v') continue;  // Skip the command and version properties
 
         HOOK.payload = {
             content: PREFIX + 'classify',
@@ -70,7 +70,7 @@ async function classifyPosts() {
                 }
             ]
         }
-        await delay(1000);
+        await delay(1000);  //Discord API has a rate limit of 5 requests per 5 seconds
         trigger();
     }
     finish('Action has been executed')

@@ -1,15 +1,18 @@
 // Viewing and re-classifying RMB posts.
 
-// A list of classified posts for the viewed Vote.
-// Objects have the RMB Post ID as key and a stance as value.
+// An object serving as list of classified posts for the viewed Vote.
+// Every classified post has its stance as value to its RMB post ID.
+// Example: If post 12345 was classified "For" and post 54321 was marked "Against", this would be saved as:
+// 12345: 'f', 54321: 'a'
 let classified = {};
 
-// Asynchronous IIF (communicating with NS API is async)
+// Asynchronous Immediately Invoked Function (communicating with NS API is async!)
 (async function() {
     document.getElementById('internal').innerText = QUERY.internal;
-    document.getElementById('open').innerText = QUERY.open == 'true' ? 'VOTING IS OPENED' : 'VOTING IS CLOSED';
+    document.getElementById('open').innerText = QUERY.open == 'true' ? '[VOTING IS OPENED]' : '[VOTING IS CLOSED]';
     document.getElementById('title').innerText = QUERY.title;
     await loadPosts();
+    document.getElementById('loading').hidden = true;
 })();
 
 // Load all RMB Post IDs from the different stances into the classified variable

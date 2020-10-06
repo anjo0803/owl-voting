@@ -12,15 +12,16 @@ const BALLOTS = {
 };
 
 // Conduct a simple version check.
-const BOTV = 2;
-
-// Command prefix.
-const PREFIX = '/';
-
-if(QUERY.v == undefined) {
+const BOTV = 3;
+let pre = '/';
+if(QUERY.v == undefined) {  // No version defined
     window.alert('Your link here does not specify a bot version. Do not expect things to work unless you know exactly what you\'re doing.');
-} else {
+} else if(QUERY.v == 'beta') {  // Beta version
+    pre = '.';
+} else {    // Normal version
     const LINKV = parseInt(QUERY.v);
+
+    // Alert if version too new/old
     if(LINKV > BOTV) {
         window.alert('The link bringing you here claims a newer bot version than that of this page. Be advised that things might not work properly!');
     } else if(LINKV < BOTV) {
@@ -28,6 +29,10 @@ if(QUERY.v == undefined) {
     }
 }
 
+// Check whether credentials are registered
 if((QUERY.hook == undefined || QUERY.token == undefined) && (localStorage.getItem('hook') == null || localStorage.getItem('token') == null)) {
     window.alert('You\'ve got no credentials for using this interface registered!\nAny action you take will not be registered.');
 }
+
+// Command prefix.
+const PREFIX = pre;

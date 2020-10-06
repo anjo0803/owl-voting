@@ -4,14 +4,29 @@ let lodged = [], edited = [];
 // List of open votes
 let votes = [];
 
-// Asynchronous IIF (communicating with NS API is async)
+// List of WA members
+let wa = [];
+
+// Asynchronous Immediately Invoked Function (communicating with NS API is async!)
 (async function() {
+    await loadWA();
     await loadPosts();
     loadVotes();
     draw();
+    document.getElementById('loading').hidden = true;
 })();
 
-// Load all RMB Post IDs from the query string into variables
+// Load all WA members in order to identify voters as WA members
+async function loadWA() {
+    console.log('Loading WA members...');
+
+    let doc = await ns.getWA();
+    for(let member of doc.getElementsByTagName('MEMBERS')[0].textContent.split(',')) wa.push(member);
+}
+
+// Load all RMB Post IDs from the query string into variables.
+// The query string syntax is (for newly lodged/edited respectively):
+// &lodged=[postID];[postID];... | &edited=[postID];[postID];...
 async function loadPosts() {
     console.log('Decoding URL...');
 
@@ -32,10 +47,10 @@ async function loadPosts() {
         }
     }
 
-    // If there are no posts to classify, end the method
+    // If there are no posts to classify, end the method.
     if(lodgedIDs.length == 0 && editedIDs.length == 0) return;
 
-    // In order to create post objects, get all since the oldest from the NS API
+    // In order to create rmbpost objects, get all RMB messages since the oldest needed one from the NS API
     console.log('Loading RMB...');
     let doc = await ns.getRMB(VOTING_REGION, oldestPost);
     for(let rmbpost of doc.getElementsByTagName('POST')) {
@@ -44,12 +59,14 @@ async function loadPosts() {
             poster: rmbpost.getElementsByTagName('NATION')[0].textContent,
             text: resolveBB(rmbpost.getElementsByTagName('MESSAGE')[0].textContent)
         };
-        if(lodgedIDs.includes(rmbpost.getAttribute('id'))) lodged.push(obj);
+        if(lodgedIDs.includes(rmbpost.getAttribute('id'))) lodged.push(obj);    // Only include the specified posts.
         else if(editedIDs.includes(rmbpost.getAttribute('id'))) edited.push(obj);
     }
 }
 
-// Load all open votes from the query string into the 'open' variable
+// Load all open votes from the query string into the 'open' variable.
+// The query string syntax is:
+// &open=[[ID]:[title]];[[ID]:[title]];...
 function loadVotes() {
     if(QUERY.open != undefined) {
         console.log('Loading open OWL votes...');
@@ -60,7 +77,7 @@ function loadVotes() {
     }
 }
 
-// Appends elements for every lodged / edited post to the document
+// Appends elements for every lodged/edited post to the document
 function draw() {
     console.log('Drawing components...');
 
@@ -80,7 +97,7 @@ function createRMBQuote(post) {
     container.setAttribute('id', post.id);
 
     let summary = document.createElement('summary');
-    summary.innerHTML = post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
+    summary.innerHTML = (wa.includes(post.poster) ? '[MEMBER] ' : '[NON-WA] ') + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
 
     let blockquote = document.createElement('blockquote');
     blockquote.setAttribute('cite', 'https://www.nationstates.net/page=rmb/postid=' + post.id);
@@ -124,6 +141,7 @@ function createRMBQuote(post) {
     return container;
 }
 
+// For keeping the bottom text up-to-date with how many posts are marked classified.
 function updateAmount() {
     let amount = 0;
     for(let signoff of document.getElementsByClassName('signoff')) if(signoff.checked) amount++;
