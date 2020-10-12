@@ -13,7 +13,7 @@ const BALLOTS = {
 
 // Conduct a simple version check.
 const BOTV = 3;
-let pre = '/';
+let pre = '-';
 if(QUERY.v == undefined) {  // No version defined
     window.alert('Your link here does not specify a bot version. Do not expect things to work unless you know exactly what you\'re doing.');
 } else if(QUERY.v == 'beta') {  // Beta version
