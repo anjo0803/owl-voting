@@ -9,7 +9,7 @@ let classified = {};
 // Asynchronous Immediately Invoked Function (communicating with NS API is async!)
 (async function() {
     document.getElementById('internal').innerText = QUERY.internal;
-    document.getElementById('open').innerText = QUERY.open == 'true' ? '[VOTING IS OPENED]' : '[VOTING IS CLOSED]';
+    document.getElementById('open').innerText = QUERY.open == 'true' ? '[VOTING IS OPEN]' : '[VOTING IS CLOSED]';
     document.getElementById('title').innerText = QUERY.title;
     await loadPosts();
     document.getElementById('loading').hidden = true;
@@ -19,15 +19,16 @@ let classified = {};
 async function loadPosts() {
     console.log('Loading posts!');
 
-    // Track the oldest post in order to know from where on to load the RMB
-    let oldestPost = null;
+    // Get the specified post from where on to load the RMB
+    let oldestPost = QUERY.start;
+
+    // Track the newest post in order to know from where on to skip the RMB
     let newestPost = null;
     for(let ballot in BALLOTS) {
         if(!BALLOTS.hasOwnProperty(ballot)) continue;
         if(QUERY[ballot] == undefined) continue;
         for(let message of QUERY[ballot.toLowerCase().replace(' ', '_')].split(';')) {
             classified[message] = ballot;
-            if(oldestPost == null || message < oldestPost) oldestPost = message;
             if(newestPost == null || message > newestPost) newestPost = message;
         }
     }
@@ -38,7 +39,7 @@ async function loadPosts() {
     let doc = await ns.getRMB(VOTING_REGION, oldestPost);
     for(let rmbpost of doc.getElementsByTagName('POST')) {
         if(parseInt(rmbpost.getAttribute('id')) > newestPost) continue; // Skip too new votes
-        let obj = {
+        let obj = { // Create a post object to better save data
             id: rmbpost.getAttribute('id'),
             poster: rmbpost.getElementsByTagName('NATION')[0].textContent,
             text: resolveBB(rmbpost.getElementsByTagName('MESSAGE')[0].textContent)

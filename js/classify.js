@@ -94,7 +94,7 @@ function createRMBQuote(post) {
     let container = document.createElement('details');
     container.setAttributeNode(document.createAttribute('open'));
     container.setAttribute('class', 'post');
-    container.setAttribute('id', post.id);
+    container.setAttribute('name', post.id);
 
     let summary = document.createElement('summary');
     summary.innerHTML = (wa.includes(post.poster) ? '[MEMBER] ' : '[NON-WA] ') + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
@@ -107,13 +107,13 @@ function createRMBQuote(post) {
     let classification = document.createElement('p');
 
     let signoff = document.createElement('input');
-    signoff.setAttribute('id', 'signoff-' + post.id);
+    signoff.setAttribute('id', post.id);
     signoff.setAttribute('type', 'checkbox');
     signoff.setAttribute('class', 'signoff');
     signoff.setAttribute('onchange', 'updateAmount();');
 
     let legend = document.createElement('label');
-    legend.setAttribute('for', 'signoff-' + post.id);
+    legend.setAttribute('for', post.id);
     legend.innerText = 'Classify post as ';
 
     let selectStance = document.createElement('select');

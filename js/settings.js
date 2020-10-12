@@ -13,7 +13,7 @@ const BALLOTS = {
 
 // Conduct a simple version check.
 const BOTV = 3;
-let pre = '-';
+let pre = '/';
 if(QUERY.v == undefined) {  // No version defined
     window.alert('Your link here does not specify a bot version. Do not expect things to work unless you know exactly what you\'re doing.');
 } else if(QUERY.v == 'beta') {  // Beta version
@@ -30,8 +30,9 @@ if(QUERY.v == undefined) {  // No version defined
 }
 
 // Check whether credentials are registered
-if((QUERY.hook == undefined || QUERY.token == undefined) && (localStorage.getItem('hook') == null || localStorage.getItem('token') == null)) {
-    window.alert('You\'ve got no credentials for using this interface registered!\nAny action you take will not be registered.');
+if((QUERY.hook == undefined || QUERY.token == undefined || QUERY.auth == undefined) && 
+        (localStorage.getItem('hook') == null || localStorage.getItem('token') == null || localStorage.getItem('auth') == null)) {
+    window.alert('You\'ve got no or not all necessary credentials for using this interface registered!\nActions you take most probably won\'t be relayed.');
 }
 
 // Command prefix.

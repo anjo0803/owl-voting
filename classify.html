@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="graphics/bot.png">
+    <link rel="stylesheet" href="css/classify.css">
     <title>OWL | Classify Posts</title>
     <script src="js/querydecoder.js"></script>
     <script src="js/settings.js"></script>
@@ -18,8 +19,8 @@
     <div id="edited" hidden>
         <h2>Newly Edited</h2>
     </div>
+    <hr>
     <div>
-        <hr>
         <p>
             <button id="classify" onclick="execute()">No Posts Marked Classified</button>
         </p>
@@ -44,11 +45,11 @@
         function constructQueryString() {
             let str = '?v=' + BOTV + '&c=classify';
             for(let post of lodged) {
-                let section = document.getElementById(post.id);
+                let section = document.getElementsByName(post.id)[0]; //document.getElementById(post.id);
                 if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
             }
             for(let post of edited) {
-                let section = document.getElementById(post.id);
+                let section = document.getElementsByName(post.id)[0]; //document.getElementById(post.id);
                 if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
             }
             console.log(str);
