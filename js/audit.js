@@ -6,14 +6,26 @@
 // 12345: 'f', 54321: 'a'
 let classified = {};
 
+// List of WA member nations in order to identify voters as (non-)WA members
+let wa = [];
+
 // Asynchronous Immediately Invoked Function (communicating with NS API is async!)
 (async function() {
     document.getElementById('internal').innerText = QUERY.internal;
     document.getElementById('open').innerText = QUERY.open == 'true' ? '[VOTING IS OPEN]' : '[VOTING IS CLOSED]';
     document.getElementById('title').innerText = QUERY.title;
+    await loadWA();
     await loadPosts();
     document.getElementById('loading').hidden = true;
 })();
+
+// Load all WA members in order to identify voters as WA members
+async function loadWA() {
+    console.log('Loading WA members...');
+
+    let doc = await ns.getWA();
+    for(let member of doc.getElementsByTagName('MEMBERS')[0].textContent.split(',')) wa.push(member);
+}
 
 // Load all RMB Post IDs from the different stances into the classified variable
 async function loadPosts() {
@@ -58,7 +70,8 @@ function createRMBQuote(post) {
     container.setAttribute('id', post.id);
 
     let summary = document.createElement('summary');
-    summary.innerHTML = post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
+    let isWA = '<b class="' + wa.includes(post.poster) ? 'member">[MEMBER]</b> ' : 'non-wa">[NON-WA]</b> ';
+    summary.innerHTML = isWA + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
 
     let blockquote = document.createElement('blockquote');
     blockquote.setAttribute('cite', 'https://www.nationstates.net/page=rmb/postid=' + post.id);

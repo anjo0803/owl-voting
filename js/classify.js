@@ -97,7 +97,8 @@ function createRMBQuote(post) {
     container.setAttribute('name', post.id);
 
     let summary = document.createElement('summary');
-    summary.innerHTML = (wa.includes(post.poster) ? '[MEMBER] ' : '[NON-WA] ') + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
+    let isWA = '<b class="' + wa.includes(post.poster) ? 'member">[MEMBER]</b> ' : 'non-wa">[NON-WA]</b> ';
+    summary.innerHTML = isWA + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
 
     let blockquote = document.createElement('blockquote');
     blockquote.setAttribute('cite', 'https://www.nationstates.net/page=rmb/postid=' + post.id);
