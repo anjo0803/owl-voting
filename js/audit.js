@@ -50,7 +50,7 @@ async function loadPosts() {
     console.log('Loading RMB...')
     let doc = await ns.getRMB(VOTING_REGION, oldestPost);
     for(let rmbpost of doc.getElementsByTagName('POST')) {
-        if(parseInt(rmbpost.getAttribute('id')) > newestPost && doc.getElementsByTagName('POST').indexOf(rmbpost) > 25) continue; // Skip too recent votes
+        if(parseInt(rmbpost.getAttribute('id')) > newestPost + 50000) continue; // Skip too recent votes
         let obj = { // Create a post object to better save data
             id: rmbpost.getAttribute('id'),
             poster: rmbpost.getElementsByTagName('NATION')[0].textContent,
