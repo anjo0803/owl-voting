@@ -26,7 +26,7 @@ function resolveBB(message) {
             .replace(/\[sub\]/gmi, '<sub>').replace(/\[\/sub\]/gmi, '</sub>')   // [sub] tags
 
             // And then, the more complex ones which take arguments
-            .replace(/\[quote=\w+;\d+\]/gmi, '<q>')         .replace(/\[\/quote=\w+;\d+\]/gmi, '</q>')  // [quote] tags
+            .replace(/\[quote=.+?;\d+\]/gmi, '<q>')         .replace(/\[\/quote\]/gmi, '</q>')          // [quote] tags
             .replace(/\[url=.*?\]/gmi, '<u>')               .replace(/\[\/url\]/gmi, '</u>')            // [url] tags
             .replace(/\[nation(=.+?)?\]/gmi, '<i>')         .replace(/\[\/nation\]/gmi, '</i>')         // [nation] tags
             .replace(/\[region\]/gmi, '<i>')                .replace(/\[\/region\]/gmi, '</i>')         // [region] tags
