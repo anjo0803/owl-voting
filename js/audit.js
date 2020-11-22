@@ -66,7 +66,7 @@ function createRMBQuote(post) {
     // Details element containing utilities for the given post
     let container = document.createElement('details');
     container.setAttributeNode(document.createAttribute('open'));
-    container.setAttribute('class', classified[post.id]);
+    container.setAttribute('class', classified[post.id] == undefined ? 'not-matched' : classified[post.id]);
     container.setAttribute('id', post.id);
 
     let summary = document.createElement('summary');
