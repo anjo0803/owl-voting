@@ -32,9 +32,9 @@ function resolveBB(message) {
             .replace(/\[region\]/gmi, '<i>')                .replace(/\[\/region\]/gmi, '</i>')         // [region] tags
             .replace(/\[proposal=.*?\]/gmi, '<u>')          .replace(/\[\/proposal\]/gmi, '</u>')       // [proposal] tags
             .replace(/\[resolution=.*?\]/gmi, '<u>')        .replace(/\[\/resolution\]/gmi, '</u>')     // [resolution] tags
-            .replace(/\[spoiler(=.*?)?\]/gmi, '<details>')  .replace(/\[\/spoiler\]/gmi, '</details>')  // [spoiler] tags
 
-            // Lastly, resolve lists and newlines.
+            // Lastly, resolve spoilers, lists, and newlines.
+            .replace(/\[spoiler(=.*?)?\]/gmi, '<details><summary>Spoiler</summary>')  .replace(/\[\/spoiler\]/gmi, '</details>')  // [spoiler] tags
             .replace(/\[list(=.*?)?\]/gmi, '<ul>').replace(/\[\*\]/, '<li>').replace(/\[\/list\]/gmi, '</ul>')  // [list] tags
             .replace(/\r\n|\r|\n/gmi, '<br>');  // Newlines
 }
