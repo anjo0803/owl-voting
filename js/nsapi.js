@@ -16,7 +16,27 @@ let ns = {
 
 // Converts NationStates BBCode into HTML counterparts
 function resolveBB(message) {
-    return message.split('[u]').join('<u>').split('[/u]').join('</u>').split('[b]').join('<b>').split('[/b]').join('</b>').split('[i]').join('<i>').split('[/i]').join('</i>').split('[quote').join('<q>').split('[/quote]').join('</q>').split('\n').join('<br>');
+    return message  // First, resolve the simple tags
+            .replace(/\[u\]/gmi, '<u>').replace(/\[\/u\]/gmi, '</u>')           // [u] tags
+            .replace(/\[b\]/gmi, '<b>').replace(/\[\/b\]/gmi, '</b>')           // [b] tags
+            .replace(/\[i\]/gmi, '<i>').replace(/\[\/i\]/gmi, '</i>')           // [i] tags
+            .replace(/\[pre\]/gmi, '<pre>').replace(/\[\/pre\]/gmi, '</pre>')   // [pre] tags
+            .replace(/\[strike\]/gmi, '<s>').replace(/\[\/strike\]/gmi, '</s>') // [strike] tags
+            .replace(/\[sup\]/gmi, '<sup>').replace(/\[\/sup\]/gmi, '</sup>')   // [sup] tags
+            .replace(/\[sub\]/gmi, '<sub>').replace(/\[\/sub\]/gmi, '</sub>')   // [sub] tags
+
+            // And then, the more complex ones which take arguments
+            .replace(/\[quote=\w+;\d+\]/gmi, '<q>')         .replace(/\[\/quote=\w+;\d+\]/gmi, '</q>')  // [quote] tags
+            .replace(/\[url=.*?\]/gmi, '<u>')               .replace(/\[\/url\]/gmi, '</u>')            // [url] tags
+            .replace(/\[nation(=.+?)?\]/gmi, '<i>')         .replace(/\[\/nation\]/gmi, '</i>')         // [nation] tags
+            .replace(/\[region\]/gmi, '<i>')                .replace(/\[\/region\]/gmi, '</i>')         // [region] tags
+            .replace(/\[proposal=.*?\]/gmi, '<u>')          .replace(/\[\/proposal\]/gmi, '</u>')       // [proposal] tags
+            .replace(/\[resolution=.*?\]/gmi, '<u>')        .replace(/\[\/resolution\]/gmi, '</u>')     // [resolution] tags
+            .replace(/\[spoiler(=.*?)?\]/gmi, '<details>')  .replace(/\[\/spoiler\]/gmi, '</details>')  // [spoiler] tags
+
+            // Lastly, resolve lists and newlines.
+            .replace(/\[list(=.*?)?\]/gmi, '<ul>').replace(/\[\*\]/, '<li>').replace(/\[\/list\]/gmi, '</ul>')  // [list] tags
+            .replace(/\\n/gmi, '<br>'); // Newlines
 }
 
 // Delays the current execution - used to meet rate limits
