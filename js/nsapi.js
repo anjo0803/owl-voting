@@ -36,7 +36,7 @@ function resolveBB(message) {
 
             // Lastly, resolve lists and newlines.
             .replace(/\[list(=.*?)?\]/gmi, '<ul>').replace(/\[\*\]/, '<li>').replace(/\[\/list\]/gmi, '</ul>')  // [list] tags
-            .replace('\n', '<br>'); // Newlines
+            .replace(/\r\n|\r|\n/gmi, '<br>');  // Newlines
 }
 
 // Delays the current execution - used to meet rate limits
