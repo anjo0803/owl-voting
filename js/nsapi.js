@@ -16,6 +16,7 @@ let ns = {
 
 // Converts NationStates BBCode into HTML counterparts
 function resolveBB(message) {
+    let b = 'https://www.nationstates.net/';
     return message  // First, resolve the simple tags
             .replace(/\[u\]/gmi, '<u>').replace(/\[\/u\]/gmi, '</u>')           // [u] tags
             .replace(/\[b\]/gmi, '<b>').replace(/\[\/b\]/gmi, '</b>')           // [b] tags
@@ -26,19 +27,19 @@ function resolveBB(message) {
             .replace(/\[sub\]/gmi, '<sub>').replace(/\[\/sub\]/gmi, '</sub>')   // [sub] tags
 
             // And then, the more complex ones which take arguments
-            .replace(/\[quote=.+?;\d+\]/gmi, '<q>')                                     .replace(/\[\/quote\]/gmi, '</q>')          // [quote] tags
-            .replace(/\[url=(.*?)\]/gmi, '<a href="$1">')                               .replace(/\[\/url\]/gmi, '</a>')            // [url] tags
-            .replace(/\[nation\](.*)(?=\[)/gmi, '<a href="nation=$1">$1')               .replace(/\[\/nation\]/gmi, '</a>')         // [nation] tags
-            .replace(/\[region\](.*)(?=\[)/gmi, '<a href="region=$1">$1')               .replace(/\[\/region\]/gmi, '</a>')         // [region] tags
-            .replace(/\[proposal=(.*?)\]/gmi, '<a href="page=UN_view_proposal/id=$1">') .replace(/\[\/proposal\]/gmi, '</a>')       // [proposal] tags
-            .replace(/\[resolution=(?:(UN|GA|SC))#(\d+)\]/gmi, '<a href="page=WA_past_resolution/id=$2/council=' 
+            .replace(/\[quote=.+?;\d+\]/gmi, '<q>')                                              .replace(/\[\/quote\]/gmi, '</q>')          // [quote] tags
+            .replace(/\[url=(.*?)\]/gmi, '<a href="' + b + '$1">')                               .replace(/\[\/url\]/gmi, '</a>')            // [url] tags
+            .replace(/\[nation\](.*)(?=\[)/gmi, '<a href="' + b + 'nation=$1">$1')               .replace(/\[\/nation\]/gmi, '</a>')         // [nation] tags
+            .replace(/\[region\](.*)(?=\[)/gmi, '<a href="' + b + 'region=$1">$1')               .replace(/\[\/region\]/gmi, '</a>')         // [region] tags
+            .replace(/\[proposal=(.*?)\]/gmi, '<a href="' + b + 'page=UN_view_proposal/id=$1">') .replace(/\[\/proposal\]/gmi, '</a>')       // [proposal] tags
+            .replace(/\[resolution=(?:(UN|GA|SC))#(\d+)\]/gmi, '<a href="' + b + 'page=WA_past_resolution/id=$2/council=' 
                     + ('$1'.toUpperCase() == 'UN' ? '0' : '$1'.toUpperCase() == 'GA' ? '1' : '$1'.toUpperCase() == 'SC' ? '2' : '-1') 
                     + '">').replace(/\[\/resolution\]/gmi, '</a>')     // [resolution] tags
 
             // Lastly, resolve spoilers, lists, and newlines.
             .replace(/\[spoiler(?:=(.*?))?\]/gmi, '<details><summary>' 
-                    + ('$1'.length == 0 ? 'Spoiler' : '$1') + '</summary>')  .replace(/\[\/spoiler\]/gmi, '</details>')  // [spoiler] tags
-            .replace(/\[list(=.*?)?\]/gmi, '<ul>').replace(/\[\*\]/gmi, '<li>').replace(/\[\/list\]/gmi, '</ul>')   // [list] tags
+                    + ('$1'.length == 0 ? 'Spoiler' : '$1') + '</summary>')  .replace(/\[\/spoiler\]/gmi, '</details>') // [spoiler] tags
+            .replace(/\[list(=.*?)?\]/gmi, '<ul>').replace(/\[\*\]/gmi, '<li>').replace(/\[\/list\]/gmi, '</ul>')       // [list] tags
             .replace(/\r\n|\r|\n/gmi, '<br>');  // Newlines
 }
 
