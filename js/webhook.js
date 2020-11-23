@@ -9,12 +9,22 @@ const HOOK = {
             console.error('Necessary credentials not provided, request denied');
             window.alert('No or not all necessary credentials are registered in your browser. Please get yourself registered by OWL Senior Staff first.');
         } else {
-            this.payload.color = 0xFF9900;
+            
+            // Finalize the payload before sending it by customizing the username and adding auth keys
             this.payload.username = localStorage.getItem('name');
-            this.payload.footer = {
-                text: localStorage.getItem('auth'),
-                icon_url: "https://anjo0803.github.io/owl-voting/graphics/bot.png"
-            };
+            if(this.payload.embeds != undefined) for(let embed in this.payload.embeds) {
+                embed.color = 0xFF9900;
+                embed.footer = {
+                    text: localStorage.getItem('auth'),
+                    icon_url: "https://anjo0803.github.io/owl-voting/graphics/bot.png"
+                };
+            } else this.payload.embeds = [{
+                color = 0xFF9900,
+                footer = {
+                    text: localStorage.getItem('auth'),
+                    icon_url: "https://anjo0803.github.io/owl-voting/graphics/bot.png"
+                }
+            }]
             $.ajax({
                 url: 'https://discordapp.com/api/webhooks/' + localStorage.getItem('hook') + '/' + localStorage.getItem('token'),
                 type: 'POST',
