@@ -34,7 +34,7 @@ function resolveBB(message) {
             .replace(/\[resolution=.*?\]/gmi, '<u>')        .replace(/\[\/resolution\]/gmi, '</u>')     // [resolution] tags
 
             // Lastly, resolve spoilers, lists, and newlines.
-            .replace(/\[spoiler((?:=)?.*?)?\]/gmi, '<details><summary>' + ('$1'.length == 0 ? 'Spoiler' : '$1') + '</summary>').replace(/\[\/spoiler\]/gmi, '</details>')    // [spoiler] tags
+            .replace(/\[spoiler(?:(?:=)(.*?))?\]/gmi, '<details><summary>' + ('$1'.length == 0 ? 'Spoiler' : '$1') + '</summary>').replace(/\[\/spoiler\]/gmi, '</details>')    // [spoiler] tags
             .replace(/\[list(?:=.*?)?\]/gmi, '<ul>').replace(/\[\*\]/gmi, '<li>').replace(/\[\/list\]/gmi, '</ul>')   // [list] tags
             .replace(/\r\n|\r|\n/gmi, '<br>');  // Newlines
 }
