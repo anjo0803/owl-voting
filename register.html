@@ -17,8 +17,8 @@
             localStorage.setItem('auth', decodeURIComponent(QUERY.auth));
             localStorage.setItem('name', QUERY.name == undefined ? 'Staff Member' : QUERY.name);
             document.getElementById('result').innerText = 'Credentials registered:'
-                    + '\nYour name: ' + (QUERY.name == undefined ? 'Staff Member' : QUERY.name)
-                    + '\nYour access key: ' + decodeURIComponent(QUERY.auth);
+                    + '\nYour name: ' + localStorage.getItem('name')
+                    + '\nYour access key: ' + localStorage.getItem('auth');
         } else document.getElementById('result').innerText = 'Failed - Not all necessary credentials were provided';
     </script>
 </body>
