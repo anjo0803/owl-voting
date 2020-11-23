@@ -30,9 +30,9 @@ if(QUERY.v == undefined) {  // No version defined
 }
 
 // Check whether credentials are registered
-if((QUERY.hook == undefined || QUERY.token == undefined || QUERY.auth == undefined) && 
-        (localStorage.getItem('hook') == null || localStorage.getItem('token') == null || localStorage.getItem('auth') == null)) {
-    window.alert('You\'ve got no or not all necessary credentials for using this interface registered!\nActions you take most probably won\'t be relayed.');
+if((QUERY.hook == undefined || QUERY.token == undefined || QUERY.auth == undefined || QUERY.name == undefined) && 
+        (localStorage.getItem('hook') == null || localStorage.getItem('token') == null || localStorage.getItem('name') || localStorage.getItem('auth') == null)) {
+    window.alert('You\'ve got no or not all necessary credentials for using this interface registered!\nActions you take most probably won\'t be relayed.\nPlease get registered by OWL Senior Staff first.');
 }
 
 // Command prefix.
