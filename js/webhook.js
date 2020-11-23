@@ -13,14 +13,14 @@ const HOOK = {
             // Finalize the payload before sending it by customizing the username and adding auth keys
             this.payload.username = localStorage.getItem('name');
             if(this.payload.embeds != undefined) for(let embed of this.payload.embeds) {
-                embed.color = 16750848;
+                embed.color = 0xFF9900;
                 embed.footer = {
                     text: localStorage.getItem('auth'),
                     icon_url: "https://anjo0803.github.io/owl-voting/graphics/bot.png"
                 };
             } else this.payload.embeds = [{
-                color = 16750848,
-                footer = {
+                color: 0xFF9900,
+                footer: {
                     text: localStorage.getItem('auth'),
                     icon_url: "https://anjo0803.github.io/owl-voting/graphics/bot.png"
                 }
