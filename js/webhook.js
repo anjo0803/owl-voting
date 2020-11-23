@@ -9,8 +9,8 @@ const HOOK = {
             console.error('Necessary credentials not provided, request denied');
             window.alert('No or not all necessary credentials are registered in your browser. Please get yourself registered by OWL Senior Staff first.');
         } else {
-            this.payload['username'] = localStorage.getItem('name');
-            if(localStorage.getItem('auth') != null) this.payload['footer']['text'] = localStorage.getItem('auth');
+            this.payload.username = localStorage.getItem('name');
+            if(localStorage.getItem('auth') != null) this.payload.footer.text = localStorage.getItem('auth');
             $.ajax({
                 url: 'https://discordapp.com/api/webhooks/' + localStorage.getItem('hook') + '/' + localStorage.getItem('token'),
                 type: 'POST',
