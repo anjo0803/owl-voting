@@ -30,10 +30,10 @@ if(QUERY.v == undefined) {  // No version defined
 }
 
 // Check whether credentials are registered
-if((QUERY.hook == undefined || QUERY.token == undefined || QUERY.auth == undefined || QUERY.name == undefined) && 
-        (localStorage.getItem('hook') == null || localStorage.getItem('token') == null || localStorage.getItem('name') || localStorage.getItem('auth') == null)) {
-    window.alert('You\'ve got no or not all necessary credentials for using this interface registered!\nActions you take most probably won\'t be relayed.\nPlease get registered by OWL Senior Staff first.');
-}
+if(QUERY.hook == undefined && localStorage.getItem('hook') == null) window.alert('Insufficient credentials at [hook] - please get registered by OWL Senior Staff first!')
+else if(QUERY.token == undefined && localStorage.getItem('token') == null) window.alert('Insufficient credentials at [token] - please get registered by OWL Senior Staff first!')
+else if(QUERY.auth == undefined && localStorage.getItem('auth') == null) window.alert('Insufficient credentials at [auth] - please get registered by OWL Senior Staff first!')
+else if(QUERY.name == undefined && localStorage.getItem('name') == null) window.alert('Insufficient credentials at [name] - please get registered by OWL Senior Staff first!')
 
 // Command prefix.
 const PREFIX = pre;
