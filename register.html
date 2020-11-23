@@ -14,8 +14,9 @@
             localStorage.setItem('hook', QUERY.hook);
             localStorage.setItem('token', QUERY.token);
             localStorage.setItem('auth', QUERY.auth);
+            localStorage.setItem('name', QUERY.name != undefined ? 'Staff Member' : QUERY.name);
             document.getElementById('result').innerText = 'Credentials registered.'
-        } else document.getElementById('result').innerText = 'Failed - No credentials provided';
+        } else document.getElementById('result').innerText = 'Failed - Not all necessary credentials were provided';
     </script>
 </body>
 </html>
