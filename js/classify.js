@@ -97,7 +97,7 @@ function createRMBQuote(post) {
     container.setAttribute('name', post.id);
 
     let summary = document.createElement('summary');
-    let isWA = '<b>' + wa.includes(post.poster) ? '[MEMBER]</b> ' : '[NON-WA]</b> ';
+    let isWA = '<b>' + (wa.includes(post.poster) ? '[MEMBER]</b> ' : '[NON-WA]</b> ');
     summary.innerHTML = isWA + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
 
     let blockquote = document.createElement('blockquote');
