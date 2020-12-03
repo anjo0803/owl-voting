@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Source+Code+Pro'); /* Use a custom font for the interface */
+
+:root {
+    color: white;
+    font-size: 16px;
+    font-family: 'Source Sans Pro';
+
+    --tsp-blue: #109AED;
+    --nemo-blue: #0080C4;
+    --tropical-orange: #FF9900;
+}
+
+body {
+    margin: 0px;
+    background-color: #88d5ff;
+}
+
+/*
+Styling the page header for each interface page
+*/
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--tsp-blue);
+    height: 8.7vw;
+}
+.header-left {
+    display: flex;
+}
+.header-left > * {
+    height: 7.1vw;
+    margin: .8vw;
+}
+.header-author {
+    font-family: 'Source Code Pro';
+    font-style: italic;
+    margin: .8vw;
+}
+.header-separator {
+    border-left: .5vw solid var(--tropical-orange);
+}
+.header-bottom {
+    background-color: var(--nemo-blue);
+    height: 4vw;
+    text-align: center;
+    border-bottom: .6vw solid var(--tropical-orange);
+}
+
+h1, h2, h3 {
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 5.5vw;
+    letter-spacing: .8vw;
+}
+/* EXPERIMENTAL
+h1::before {
+    content: '';
+    vertical-align: middle;
+    background-image: url('../graphics/owl.png');
+    background-repeat: no-repeat;
+    background-size: 7.1vw;
+    width: 8.6vw;
+    height: 7.1vw;
+    display: inline-block;
+    border-right: .5vw solid var(--tropical-orange);
+    margin-right: 1.5vw;
+}
+ */
+h2 {
+    font-size: 3.2vw;
+    letter-spacing: .2vw;
+    margin-top: 0px;
+}
+
+h3 {
+    font-size: 3vw;
+}
+
+section {
+    margin: 10px;
+}
+
+.rmb-post {
+    border: 3px solid white;
+    border-radius: 20px;
+    background-color: var(--tsp-blue);
+    margin-bottom: 20px;
+}
+.rmb-post-quotee {
+    background-color: inherit;
+    border-radius: 16px;
+    padding: 5px;
+}
+.rmb-post[open] > .rmb-post-quotee {
+    border-bottom: 3px solid white;
+    border-radius: 16px 16px 0 0;
+}
+
+/*
+Styling to differentiate between WA member and non-member posts
+*/
+.wa-member {
+    background-color: #447643;
+}
+.non-wa {
+    background-color: #616161;
+}
+
+/* https://stackoverflow.com/questions/8977957/can-i-change-the-height-of-an-image-in-css-before-after-pseudo-elements */
+.wa-member::after, .non-wa::after {
+    content: '';
+    background-size: 1.9rem;
+    width: 1.7rem;
+    height: 1.3rem;
+    float: right;
+}
+.wa-member::after {
+    background-image: url('../graphics/wa.jpg');
+}
+.non-wa::after {
+    background-image: url('../graphics/non-wa.jpg');
+}
+
+/*
+Classified RMB posts for the audit interface
+*/
+.for {
+    background-color: #4572a7;
+}
+.against {
+    background-color: #aa4643;
+}
+.abstain {
+    background-color: #FF9900;
+}
+.no-reco {
+    background-color: gray;
+}
+.present {
+    background-color: black;
+}
