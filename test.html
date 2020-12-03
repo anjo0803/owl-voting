@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!-- THIS IS ONLY FOR TEMPORARY REDESIGN TESTING PURPOSES -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="graphics/bot.png">
+    <link rel="stylesheet" href="css/base.css">
+    <title>OWL | Web Interface</title>
+    <script src="js/querydecoder.js"></script>
+    <script src="js/settings.js"></script>
+</head>
+<body>
+
+    <!-- Page Header - include in every html file -->
+    <header>
+        <div class="header-top">
+            <span class="header-left">
+                <img src="graphics/owl.png" alt="OWL Logo">
+                <div class="header-separator"></div>
+                <h1>Bot Interface</h1>
+            </span>
+            <span class="header-right">
+                <div class="header-author">by anjo</div>
+                <div class="header-ava"><img src="" alt=""></div>
+            </span>
+        </div>
+        <div class="header-bottom">
+            <h2>Audit Classifications</h2>
+        </div>
+    </header>
+
+    <main>
+        <section id="posts">
+            <h3>Relevant RMB Posts:</h3>
+            <details class="rmb-post present" id="54321" open>
+                <summary class="rmb-post-quotee non-wa">Gudrun von Bachingen <a href="https://www.nationstates.net/">wrote</a>:</summary>
+                <blockquote class="rmb-post-content" cite="https://www.nationstates.net/page=rmb/postid=54321">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe assumenda sequi accusamus, ipsum facilis labore eos aut doloribus itaque at eius fuga atque aliquid, officia, perspiciatis et optio? Nesciunt, placeat!
+                </blockquote>
+                <button class="reclassify">Reclassify</button>
+            </details>
+            <details class="rmb-post against" id="12345" open>
+                <summary class="rmb-post-quotee wa-member">Gerhard von Selingen <a href="https://www.nationstates.net/">wrote</a>:</summary>
+                <blockquote class="rmb-post-content" cite="https://www.nationstates.net/page=rmb/postid=12345">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe assumenda sequi accusamus, ipsum facilis labore eos aut doloribus itaque at eius fuga atque aliquid, officia, perspiciatis et optio? Nesciunt, placeat!
+                </blockquote>
+                <button class="reclassify">Reclassify</button>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <span class="footer-info">OWL Bot Web Interface v<var>X</var></span>
+        <address>
+            <a href="https://www.nationstates.net/tepertopia">Tepertopia</a>
+        </address>
+    </footer>
+</body>
+</html>
