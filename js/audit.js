@@ -11,12 +11,10 @@ let wa = [];
 
 // Asynchronous Immediately Invoked Function (communicating with NS API is async!)
 (async function() {
-    document.getElementById('internal').innerText = QUERY.internal;
-    document.getElementById('open').innerText = QUERY.open == 'true' ? '[VOTING IS OPEN]' : '[VOTING IS CLOSED]';
-    document.getElementById('title').innerText = QUERY.title;
     await loadWA();
     await loadPosts();
-    document.getElementById('loading').hidden = true;
+    document.getElementById('temp-load').hidden = true;
+    for(let section of document.getElementsByClassName('content')) section.hidden = false;
 })();
 
 // Load all WA members in order to identify voters as WA members
@@ -29,7 +27,7 @@ async function loadWA() {
 
 // Load all RMB Post IDs from the different stances into the classified variable
 async function loadPosts() {
-    console.log('Loading posts!');
+    console.log('Decoding relevant posts...');
 
     // Get the specified post from where on to load the RMB
     let oldestPost = QUERY.start;
@@ -50,14 +48,13 @@ async function loadPosts() {
     console.log('Loading RMB...')
     let doc = await ns.getRMB(VOTING_REGION, oldestPost);
     for(let rmbpost of doc.getElementsByTagName('POST')) {
-        if(parseInt(rmbpost.getAttribute('id')) > newestPost + 50000) continue; // Skip too recent votes
-        let obj = { // Create a post object to better save data
+        if(parseInt(rmbpost.getAttribute('id')) > newestPost + 20000) continue; // Skip too recent votes
+        let obj = { // Create a post object to save data more efficiently
             id: rmbpost.getAttribute('id'),
             poster: rmbpost.getElementsByTagName('NATION')[0].textContent,
             text: resolveBB(rmbpost.getElementsByTagName('MESSAGE')[0].textContent)
         }
-        document.getElementById('votes').append(createRMBQuote(obj));
-        document.getElementById('votes').append(document.createElement('br'));
+        document.getElementById('audit').append(createRMBQuote(obj));
     }
 }
 
@@ -65,13 +62,13 @@ function createRMBQuote(post) {
 
     // Details element containing utilities for the given post
     let container = document.createElement('details');
-    container.setAttributeNode(document.createAttribute('open'));
-    container.setAttribute('class', classified[post.id] == undefined ? 'not-matched' : classified[post.id]);
+    container.setAttribute('class', 'rmb-post');
     container.setAttribute('id', post.id);
+    container.setAttributeNode(document.createAttribute('open'));
 
     let summary = document.createElement('summary');
-    let isWA = '<b>' + (wa.includes(post.poster) ? '[MEMBER]</b> ' : '[NON-WA]</b> ');
-    summary.innerHTML = isWA + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
+    summary.setAttribute('class', 'rmb-post-quotee ' + (wa.includes(post.poster) ? 'wa-member' : 'non-wa'));
+    summary.innerHTML = post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
 
     let blockquote = document.createElement('blockquote');
     blockquote.setAttribute('cite', 'https://www.nationstates.net/page=rmb/postid=' + post.id);
@@ -79,12 +76,16 @@ function createRMBQuote(post) {
 
     // The button used to initiate the reclassification.
     // THE .SETATTRIBUTE METHOD FOR "ONCLICK" **MUST** BE ADJUSTED WHENEVER THE URL DECODING IN CLASSIFY.JS IS CHANGED!
-    let reclassify = document.createElement('button');
+    let postoptions = document.createElement('div');
+    postoptions.setAttribute('class', 'post-options ' + (classified[post.id] == undefined ? 'irrelevant' : classified[post.id]));
+    postoptions.setAttribute('onclick', 'location.href = "classify.html?v=' + BOTV + '&edited=' + post.id + '&open=' + encodeURIComponent(QUERY.internal) + ':' + encodeURIComponent(QUERY.title) + '";');
+
+    /* let reclassify = document.createElement('button');
     reclassify.setAttribute('class', 'reclassify');
     reclassify.setAttribute('onclick', 'location.href = "classify.html?v=' + BOTV + '&edited=' + post.id + '&open=' + encodeURIComponent(QUERY.internal) + ':' + encodeURIComponent(QUERY.title) + '";');
-    reclassify.innerText = 'RECLASSIFY';
+    reclassify.innerText = 'RECLASSIFY'; */
 
-    container.append(summary, blockquote, reclassify);
+    container.append(summary, blockquote, postoptions);
     return container;
 
 }
