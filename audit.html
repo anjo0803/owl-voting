@@ -4,23 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="graphics/bot.png">
-    <link rel="stylesheet" href="css/audit.css">
+    <link rel="stylesheet" href="css/base.css">
     <title>OWL | Audit</title>
-    <script src="js/querydecoder.js"></script>
-    <script src="js/settings.js"></script>
     <script src="js/nsapi.js"></script>
 </head>
 <body>
-    <div>
-        <h1 id="title">Proposal Title</h1>
-        <pre id="internal">ID</pre>
-        <h2 id="open">open/closed</h2>
-    </div>
-    <pre id="loading">Loading data...</pre>
-    <div id="votes"></div>
-    <footer style="font-size: small; text-align: center;">
-        <i>Created by <a href="https://github.com/anjo0803">anjo</a> / <a href="https://www.nationstates.net/tepertopia">Tepertopia</a></i>
+
+    <!-- Page header - include on every interface page -->
+    <header>
+        <h1>Bot Interface</h1>
+        <h2>Audit Classifications</h2>
+    </header>
+
+    <!-- Main page content. The #input form should remain for every interface page -->
+    <main>
+        <aside id="temp-load">Loading data...</aside>
+        <section class="content" hidden>
+            <h3>Applicable RMB Posts:</h3>
+            <form id="audit"></form>
+        </section>
+    </main>
+
+    <!-- Page Footer & possible error message - include on every interface page -->
+    <noscript>It seems JavaScript isn't able to be run from your browser - please try to fix this, as JavaScript is required in order to properly use the the OWL Bot Web Interface.</noscript>
+    <footer>
+        <aside id="page-state" class="auth-unknown">OWL Bot Web Interface</aside>
+        <div class="info">
+            <address id="author">
+                Created by <a href="https://github.com/anjo0803">anjo</a> / <a href="https://www.nationstates.net/tepertopia">Tepertopia</a>
+            </address>
+            <var id="interface-version">VERSION UNDEFINED</var>
+        </div>
     </footer>
+
+    <script src="js/utility.js"></script>
     <script src="js/audit.js"></script>
 </body>
 </html>
