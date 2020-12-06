@@ -20,6 +20,10 @@ body {
     flex-direction: column;
     height: 100vh;
 }
+::selection {
+    color: white;
+    background-color: var(--tropical-orange);
+}
 
 /*
 Styling the page header for each interface page
@@ -171,8 +175,30 @@ Styling the RMB post elements
     border-radius: 0 0 16px 16px;
     color: white;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding: 5px;
+}
+.post-options select {
+    border: none;
+    border-radius: 5px;
+    background-color: var(--nemo-blue);
+    color: inherit;
+    margin-left: 5px;
+}
+
+.execute {
+    display: flex;
+    align-items: center;
+}
+#execute {
+    background-color: var(--tsp-blue);
+    border: 4px solid var(--tropical-orange);
+    border-radius: 20px;
+    color: white;
+    font-family: var(--font-secondary);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
 }
 
 /*
@@ -218,7 +244,7 @@ Classified RMB posts for the audit interface
 .p {
     background-color: black;
 }
-.irrelevant {
+.irrelevant, .classify {
     background-color: var(--tsp-blue);
 }
 
