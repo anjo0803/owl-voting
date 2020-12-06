@@ -27,7 +27,7 @@ async function loadWA() {
 
 // Load all RMB Post IDs from the different stances into the classified variable
 async function loadPosts() {
-    console.log('Decoding relevant posts...');
+    console.log('Decoding URL...');
 
     // Get the specified post from where on to load the RMB
     let oldestPost = QUERY.start;
@@ -63,7 +63,7 @@ function createRMBQuote(post) {
     // Details element containing utilities for the given post
     let container = document.createElement('details');
     container.setAttribute('class', 'rmb-post');
-    container.setAttribute('id', post.id);
+    container.setAttribute('name', post.id);
     container.setAttributeNode(document.createAttribute('open'));
 
     let summary = document.createElement('summary');
