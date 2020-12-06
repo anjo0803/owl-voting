@@ -4,30 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="graphics/bot.png">
-    <link rel="stylesheet" href="css/classify.css">
+    <link rel="stylesheet" href="css/base.css">
     <title>OWL | Classify Posts</title>
-    <script src="js/utility.js"></script>
     <script src="js/nsapi.js"></script>
 </head>
 <body>
-    <h1>Classify RMB Posts</h1>
-    <pre id="loading">Loading data...</pre>
-    <div id="lodged" hidden>
-        <h2>Newly Lodged</h2>
-    </div>
-    <div id="edited" hidden>
-        <h2>Newly Edited</h2>
-    </div>
-    <hr>
-    <div>
-        <p>
-            <button id="classify" onclick="execute()">No Posts Marked Classified</button>
-        </p>
-    </div>
-    <footer style="font-size: small; text-align: center;">
-        <i>Created by <a href="https://github.com/anjo0803">anjo</a> / <a href="https://www.nationstates.net/tepertopia">Tepertopia</a></i>
-    </footer>
     
+    <!-- Page header - include on every interface page -->
+    <header>
+        <h1>Bot Interface</h1>
+        <h2>Classify RMB Posts</h2>
+    </header>
+
+    <!-- Main page content. The forms are where JS inserts content. -->
+    <main>
+        <aside id="temp-load">Loading data...</aside>
+        <section class="content" hidden>
+            <h3>Newly Lodged Posts</h3>
+            <form id="lodged"></form>
+        </section>
+        <section class="content" hidden>
+            <h3>Newly Edited Posts</h3>
+            <form id="edited"></form>
+        </section>
+        <section class="content" hidden>
+            <h3>Reclassify Post</h3>
+            <form id="reclfy"></form>
+        </section>
+        <div class="execute"><button id="execute" onclick="execute()">No Posts Marked Classified</button></div>
+    </main>
+
+    <!-- Page Footer & possible error message - include on every interface page -->
+    <noscript>It seems JavaScript isn't able to be run from your browser - please try to fix this, as JavaScript is required in order to properly use the the OWL Bot Web Interface.</noscript>
+    <footer>
+        <aside id="page-state" class="auth-unknown">OWL Bot Web Interface</aside>
+        <div class="info">
+            <address id="author">
+                Created by <a href="https://github.com/anjo0803">anjo</a> / <a href="https://www.nationstates.net/tepertopia">Tepertopia</a>
+            </address>
+            <var id="interface-version">VERSION UNDEFINED</var>
+        </div>
+    </footer>
+
+    <script src="js/utility.js" ></script>
     <script async src="js/classify.js"></script>
     <script>
         /*
@@ -44,11 +63,15 @@
         function constructQueryString() {
             let str = '?v=' + BOTV + '&c=classify';
             for(let post of lodged) {
-                let section = document.getElementsByName(post.id)[0]; //document.getElementById(post.id);
+                let section = document.getElementsByName(post.id)[0];
                 if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
             }
             for(let post of edited) {
-                let section = document.getElementsByName(post.id)[0]; //document.getElementById(post.id);
+                let section = document.getElementsByName(post.id)[0];
+                if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
+            }
+            for(let post of reclfy) {
+                let section = document.getElementsByName(post.id)[0];
                 if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
             }
             console.log(str);
