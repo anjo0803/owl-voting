@@ -142,5 +142,5 @@ function trigger() {
 }
 
 function finish(message) {
-    document.getElementById('status').innerText = message;
+    document.getElementById('temp-load').innerText = message;
 }
