@@ -5,21 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="graphics/bot.png">
     <title>OWL | Register</title>
-    <script src="js/querydecoder.js"></script>
-    <script src="js/settings.js"></script>
 </head>
 <body>
-    <pre id="result">Registering...</pre>
+
+    <!-- Page header - include on every interface page -->
+    <header>
+        <h1>Bot Interface</h1>
+        <h2>Register</h2>
+    </header>
+
+    <main>
+        <aside id="temp-load" hidden>Registering...</aside>
+    </main>
+
+    <!-- Page Footer & possible error message - include on every interface page -->
+    <noscript>It seems JavaScript isn't able to be run from your browser - please try to fix this, as JavaScript is required in order to properly use the the OWL Bot Web Interface.</noscript>
+    <footer>
+        <aside id="page-state" class="auth-unknown">OWL Bot Web Interface</aside>
+        <div class="info">
+            <address id="author">
+                Created by <a href="https://github.com/anjo0803">anjo</a> / <a href="https://www.nationstates.net/tepertopia">Tepertopia</a>
+            </address>
+            <var id="interface-version">VERSION UNDEFINED</var>
+        </div>
+    </footer>
+
+    <script src="js/utility.js"></script>
     <script>
         if(QUERY.hook != undefined && QUERY.token != undefined && QUERY.auth != undefined) {
             localStorage.setItem('hook', QUERY.hook);
             localStorage.setItem('token', QUERY.token);
             localStorage.setItem('auth', decodeURIComponent(QUERY.auth));
             localStorage.setItem('name', QUERY.name == undefined ? 'Staff Member' : QUERY.name);
-            document.getElementById('result').innerText = 'Credentials registered:'
+            document.getElementById('temp-load').innerText = 'Credentials registered:'
                     + '\nYour name: ' + localStorage.getItem('name')
                     + '\nYour access key: ' + localStorage.getItem('auth');
-        } else document.getElementById('result').innerText = 'Failed - Not all necessary credentials were provided';
+        } else document.getElementById('temp-load').innerText = 'Failed - Not all necessary credentials were provided';
     </script>
 </body>
 </html>
