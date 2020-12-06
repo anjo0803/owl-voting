@@ -3,15 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./graphics/bot.png">
+    <link rel="shortcut icon" href="graphics/bot.png">
+    <link rel="stylesheet" href="css/base.css">
     <title>Execute Action</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./js/querydecoder.js"></script>
-    <script src="./js/settings.js"></script>
-    <script src="./js/webhook.js"></script>
+    <script src="js/webhook.js"></script>
 </head>
 <body>
-    <div id="status">Action is being executed...</div>
-    <script src="./js/execute.js"></script>
+    
+    <!-- Page header - include on every interface page -->
+    <header>
+        <h1>Bot Interface</h1>
+        <h2>Execute Action</h2>
+    </header>
+
+    <main>
+        <aside id="temp-load">Executing...</aside>
+    </main>
+
+    <!-- Page Footer & possible error message - include on every interface page -->
+    <noscript>It seems JavaScript isn't able to be run from your browser - please try to fix this, as JavaScript is required in order to properly use the the OWL Bot Web Interface.</noscript>
+    <footer>
+        <aside id="page-state" class="auth-unknown">OWL Bot Web Interface</aside>
+        <div class="info">
+            <address id="author">
+                Created by <a href="https://github.com/anjo0803">anjo</a> / <a href="https://www.nationstates.net/tepertopia">Tepertopia</a>
+            </address>
+            <var id="interface-version">VERSION UNDEFINED</var>
+        </div>
+    </footer>
+
+    <script src="js/utility.js"></script>
+    <script src="js/execute.js"></script>
 </body>
 </html>
