@@ -1,5 +1,5 @@
 // Arrays of objects representing RMB posts
-let lodged = [], edited = [];
+let lodged = [], edited = [], reclfy = [];
 
 // List of open votes
 let votes = [];
@@ -13,7 +13,7 @@ let wa = [];
     await loadPosts();
     loadVotes();
     draw();
-    document.getElementById('loading').hidden = true;
+    document.getElementById('temp-load').hidden = true;
 })();
 
 // Load all WA members in order to identify voters as WA members
@@ -31,7 +31,7 @@ async function loadPosts() {
     console.log('Decoding URL...');
 
     let oldestPost = null;
-    let lodgedIDs = [], editedIDs = [];
+    let lodgedIDs = [], editedIDs = [], reclassifyIDs = [];
     if(QUERY.lodged != undefined) {
         console.log('Loading newly lodged posts');
         for(let message of QUERY.lodged.split(';')) {
@@ -46,9 +46,16 @@ async function loadPosts() {
             if(!editedIDs.includes(message)) editedIDs.push(message);
         }
     }
+    if(QUERY.reclassify != undefined) {
+        console.log('Loading to-be-reclassified posts');
+        for(let message of QUERY.reclassify.split(';')) {
+            if(oldestPost == null || message < oldestPost) oldestPost = message;
+            if(!reclassifyIDs.includes(message)) reclassifyIDs.push(message);
+        }
+    }
 
     // If there are no posts to classify, end the method.
-    if(lodgedIDs.length == 0 && editedIDs.length == 0) return;
+    if(lodgedIDs.length == 0 && editedIDs.length == 0 && reclassifyIDs.length == 0) return;
 
     // In order to create rmbpost objects, get all RMB messages since the oldest needed one from the NS API
     console.log('Loading RMB...');
@@ -61,6 +68,7 @@ async function loadPosts() {
         };
         if(lodgedIDs.includes(rmbpost.getAttribute('id'))) lodged.push(obj);    // Only include the specified posts.
         else if(editedIDs.includes(rmbpost.getAttribute('id'))) edited.push(obj);
+        else if(reclassifyIDs.includes(rmbpost.getAttribute('id'))) reclfy.push(obj);
     }
 }
 
@@ -83,8 +91,10 @@ function draw() {
 
     for(let post of lodged) document.getElementById('lodged').append(createRMBQuote(post));
     for(let post of edited) document.getElementById('edited').append(createRMBQuote(post));
-    if(lodged.length > 0) document.getElementById('lodged').hidden = false;
-    if(edited.length > 0) document.getElementById('edited').hidden = false;
+    for(let post of reclfy) document.getElementById('reclfy').append(createRMBQuote(post));
+    if(lodged.length > 0) document.getElementById('lodged').parentElement.hidden = false;
+    if(edited.length > 0) document.getElementById('edited').parentElement.hidden = false;
+    if(reclfy.length > 0) document.getElementById('reclfy').parentElement.hidden = false;
 }
 
 // Returns a set up section for classifying a RMB post
@@ -92,20 +102,21 @@ function createRMBQuote(post) {
 
     // Details element containing utilities for the given post
     let container = document.createElement('details');
-    container.setAttributeNode(document.createAttribute('open'));
-    container.setAttribute('class', 'post');
+    container.setAttribute('class', 'rmb-post');
     container.setAttribute('name', post.id);
+    container.setAttributeNode(document.createAttribute('open'));
 
     let summary = document.createElement('summary');
-    let isWA = '<b>' + (wa.includes(post.poster) ? '[MEMBER]</b> ' : '[NON-WA]</b> ');
-    summary.innerHTML = isWA + post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
+    summary.setAttribute('class', 'rmb-post-quotee ' + (wa.includes(post.poster) ? 'wa-member' : 'non-wa'));
+    summary.innerHTML = post.poster + ' <a href="https://www.nationstates.net/region=' + VOTING_REGION + '/page=display_region_rmb?postid=' + post.id + '#p' + post.id + '">wrote:</a>';
 
     let blockquote = document.createElement('blockquote');
     blockquote.setAttribute('cite', 'https://www.nationstates.net/page=rmb/postid=' + post.id);
     blockquote.innerHTML = post.text;
 
     // Paragraph containing the classification utilities
-    let classification = document.createElement('p');
+    let postoptions = document.createElement('div');
+    postoptions.setAttribute('class', 'post-options classify');
 
     let signoff = document.createElement('input');
     signoff.setAttribute('id', post.id);
@@ -136,9 +147,9 @@ function createRMBQuote(post) {
         selectVote.appendChild(option);
     }
 
-    classification.append(signoff, legend, selectStance, selectVote);
+    postoptions.append(signoff, legend, selectStance, selectVote);
 
-    container.append(summary, blockquote, classification);
+    container.append(summary, blockquote, postoptions);
     return container;
 }
 
@@ -146,6 +157,6 @@ function createRMBQuote(post) {
 function updateAmount() {
     let amount = 0;
     for(let signoff of document.getElementsByClassName('signoff')) if(signoff.checked) amount++;
-    if(amount == 0) document.getElementById('classify').innerText = 'No Posts Marked Classified';
-    else document.getElementById('classify').innerHTML = 'Classify <b>' + amount + '</b> Post' + (amount > 1 ? 's' : '');
+    if(amount == 0) document.getElementById('execute').innerText = 'No Posts Marked Classified';
+    else document.getElementById('execute').innerHTML = 'Classify <b>' + amount + '</b> Post' + (amount > 1 ? 's' : '');
 }
