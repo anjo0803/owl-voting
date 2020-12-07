@@ -74,16 +74,15 @@ function createRMBQuote(post) {
     blockquote.setAttribute('cite', 'https://www.nationstates.net/page=rmb/postid=' + post.id);
     blockquote.innerHTML = post.text;
 
-    // The button used to initiate the reclassification.
+    // The div used to initiate the reclassification.
     // THE .SETATTRIBUTE METHOD FOR "ONCLICK" **MUST** BE ADJUSTED WHENEVER THE URL DECODING IN CLASSIFY.JS IS CHANGED!
     let postoptions = document.createElement('div');
     postoptions.setAttribute('class', 'post-options ' + (classified[post.id] == undefined ? 'irrelevant' : classified[post.id]));
     postoptions.setAttribute('onclick', 'location.href = "classify.html?v=' + BOTV + '&edited=' + post.id + '&open=' + encodeURIComponent(QUERY.internal) + ':' + encodeURIComponent(QUERY.title) + '";');
 
-    /* let reclassify = document.createElement('button');
-    reclassify.setAttribute('class', 'reclassify');
-    reclassify.setAttribute('onclick', 'location.href = "classify.html?v=' + BOTV + '&edited=' + post.id + '&open=' + encodeURIComponent(QUERY.internal) + ':' + encodeURIComponent(QUERY.title) + '";');
-    reclassify.innerText = 'RECLASSIFY'; */
+    // Continuity between classification and reclassification interfaces. CSS should inject the "For/Against/whatever" text in there.
+    let legend_span = document.createElement('span');
+    postoptions.append(legend_span);
 
     container.append(summary, blockquote, postoptions);
     return container;
