@@ -89,6 +89,9 @@ so as to avoid strange formatting at extremely small sizes.
     h3 {
         font-size: 4vw;
     }
+    .post-options {
+        flex-direction: column;
+    }
 }
 @media only screen and (min-width: 600px) {
     h1 {
@@ -111,6 +114,9 @@ so as to avoid strange formatting at extremely small sizes.
     }
     h3 {
         font-size: 24px;
+    }
+    .post-options {
+        flex-direction: row;
     }
 }
 
@@ -248,31 +254,32 @@ Classified RMB posts for the audit interface
     background-color: var(--tsp-blue);
 }
 
+/* Animation for when user hovers over reclassify redirect */
 #audit .post-options:hover {
     cursor: pointer;
 }
-#audit .post-options::after {
+#audit .post-options span::after {
     font-family: var(--font-secondary);
     font-weight: bold;
     letter-spacing: 5px;
     text-transform: uppercase;
 }
-.f::after {
+.f span::after {
     content: 'For';
 }
-.a::after {
+.a span::after {
     content: 'Against';
 }
-.x::after {
+.x span::after {
     content: 'Abstain';
 }
-.n::after {
+.n span::after {
     content: 'No Recommendation';
 }
-.p::after {
+.p span::after {
     content: 'Present';
 }
-.irrelevant::after {
+.irrelevant span::after {
     content: 'Irrelevant';
 }
 
