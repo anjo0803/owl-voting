@@ -118,6 +118,8 @@ function createRMBQuote(post) {
     let postoptions = document.createElement('div');
     postoptions.setAttribute('class', 'post-options classify');
 
+    let legend_span = document.createElement('span');
+
     let signoff = document.createElement('input');
     signoff.setAttribute('id', post.id);
     signoff.setAttribute('type', 'checkbox');
@@ -147,8 +149,8 @@ function createRMBQuote(post) {
         selectVote.appendChild(option);
     }
 
-    postoptions.append(signoff, legend, selectStance, selectVote);
-
+    legend_span.append(signoff, legend);
+    postoptions.append(legend_span, selectStance, selectVote);
     container.append(summary, blockquote, postoptions);
     return container;
 }
