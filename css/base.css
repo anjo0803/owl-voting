@@ -202,8 +202,7 @@ Styling the RMB post elements
     border-radius: 20px;
     color: white;
     font-family: var(--font-secondary);
-    margin-left: auto;
-    margin-right: auto;
+    margin: 10px auto 10px auto;
     padding: 10px;
 }
 
