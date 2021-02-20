@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/base.css">
     <title>OWL | Classify Posts</title>
     <script src="js/nsapi.js"></script>
+    <script src="js/utility.js" defer></script>
+    <script src="js/classify.js" defer></script>
 </head>
 <body>
     
@@ -46,8 +48,6 @@
         </div>
     </footer>
 
-    <script src="js/utility.js" ></script>
-    <script async src="js/classify.js"></script>
     <script>
         /*
         Wraps the currently signed vote classifications into a query string of the syntax:
@@ -62,15 +62,8 @@
         */
         function constructQueryString() {
             let str = '?v=' + BOTV + '&c=classify';
-            for(let post of lodged) {
-                let section = document.getElementsByName(post.id)[0];
-                if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
-            }
-            for(let post of edited) {
-                let section = document.getElementsByName(post.id)[0];
-                if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
-            }
-            for(let post of reclfy) {
+            let posts = lodged.concat(edited).concat(reclfy);
+            for(let post of posts) {
                 let section = document.getElementsByName(post.id)[0];
                 if(section.getElementsByClassName('signoff')[0].checked) str += '&' + post.id + '=' + section.getElementsByClassName('stance')[0].value + ':' + section.getElementsByClassName('proposal')[0].value;
             }
