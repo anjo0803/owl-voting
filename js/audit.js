@@ -78,7 +78,7 @@ function createRMBQuote(post) {
     // THE .SETATTRIBUTE METHOD FOR "ONCLICK" **MUST** BE ADJUSTED WHENEVER THE URL DECODING IN CLASSIFY.JS IS CHANGED!
     let postoptions = document.createElement('div');
     postoptions.setAttribute('class', 'post-options ' + (classified[post.id] == undefined ? 'irrelevant' : classified[post.id]));
-    postoptions.setAttribute('onclick', 'location.href = "classify.html?v=' + BOTV + '&edited=' + post.id + '&open=' + encodeURIComponent(QUERY.internal) + ':' + encodeURIComponent(QUERY.title) + '";');
+    postoptions.setAttribute('onclick', 'location.href = "classify.html?v=' + BOTV + '&reclassify=' + post.id + '&open=' + encodeURIComponent(QUERY.internal) + ':' + encodeURIComponent(QUERY.title) + '";');
 
     // Continuity between classification and reclassification interfaces. CSS should inject the "For/Against/whatever" text in there.
     let legend_span = document.createElement('span');
