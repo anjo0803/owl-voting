@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="graphics/bot.png">
+    <link rel="stylesheet" href="css/base.css">
     <title>OWL | Register</title>
     <script src="js/utility.js" defer></script>
 </head>
@@ -31,7 +32,7 @@
         </div>
     </footer>
 
-    <script>
+    <script defer>
         if(QUERY.hook != undefined && QUERY.token != undefined && QUERY.auth != undefined) {
             localStorage.setItem('hook', QUERY.hook);
             localStorage.setItem('token', QUERY.token);
