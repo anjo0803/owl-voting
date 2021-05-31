@@ -175,6 +175,13 @@ Styling the RMB post elements
     border-radius: 16px 16px 0 0;
 }
 
+.rmb-post q {
+    display: block;
+    border: 1px solid var(--nemo-blue);
+    border-radius: 5px;
+    padding: 3px;
+}
+
 .post-options {
     background-color: inherit;
     border-top: 3px solid var(--tropical-orange);
